@@ -1,0 +1,48 @@
+version: "2"
+services:
+
+    #NGINX
+    nginx:
+        image: dockerhub.jmvstream.com/nochalks3_laravel6:latest
+        container_name: containername_default
+        hostname: hostname_default
+        restart: unless-stopped
+        environment:
+            - NOCHALKS_ENV=production
+            - NODE_ENV=production
+            - APP_NAME="hostname_default"
+            - APP_URL=https://appurl_default
+            - DB_HOST=10.88.0.1
+            - DB_USERNAME=user_default
+            - DB_DATABASE=database_default
+            - DB_PASSWORD=pass_default
+            - NCH2_DB_CONNECTION=nch2
+            - NCH2_DB_HOST=10.88.0.1
+            - NCH2_DB_PORT=3306
+            - NCH2_DB_DATABASE=migrate_default
+            - NCH2_DB_USERNAME=migrate_default
+            - NCH2_DB_PASSWORD=migrate _default
+        tty: true
+        privileged: false
+        volumes:
+            - /home/nochalks3/git/v3/master:/home
+            - /home/nochalks3/www/domain_default/environments/config/production:/home/environments/config/production
+            - /home/nochalks3/www/domain_default/bin:/home/bin
+            - /home/nochalks3/www/domain_default/storage:/home/storage
+            - /home/nochalks3/www/domain_default/nginxconf:/nginxconf
+            - /home/nochalks3/www/domain_default/public/app:/home/public/app
+            - /home/nochalks3/www/domain_default/public/js:/home/public/js
+            - /home/nochalks3/www/domain_default/process/logs:/home/process/logs
+            - /home/nochalks3/www/domain_default/process/bin:/home/process/bin
+            - /home/nochalks3/www/domain_default/bootstrap/cache:/home/bootstrap/cache
+            - /home/nochalks3/www/domain_default/resources/views/emails:/home/resources/views/emails
+        networks:
+            nochalks3_network:
+                ipv4_address: ip_default
+
+#NETWORK
+networks:
+    nochalks3_network:
+        external:
+            name: nochalks3_network
+
